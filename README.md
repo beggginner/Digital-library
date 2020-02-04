@@ -1,2 +1,3 @@
-# Check-Your-Score
-An IT Project app that helps students check their scores
+# Digital-library
+An IT Project app that helps students renew library cards
+
