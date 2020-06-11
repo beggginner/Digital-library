@@ -1,7 +1,8 @@
-package com.example.fkingstop;
+package com.example.tick_tok;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NavUtils;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TextView blackCounterTextView;
     Button wSwitchButton;
     Button bSwitchButton;
+    Button reset;
 
     CountDownTimer whiteCountDownTimer;
     CountDownTimer blackCountDownTimer;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     long wtimeleftinmillis = 60000;
     long btimeleftinmillis = 60000;
     int numberofwhiteswitchpresses =0;
+    int Numberofblackswitchpresses=0;
+    int number=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         blackCounterTextView=(TextView)findViewById(R.id.blackCounterTextView);
         wSwitchButton=(Button)findViewById(R.id.whiteSwitchButton);
         bSwitchButton=(Button)findViewById(R.id.blackSwitchButton);
+        reset=(Button)findViewById(R.id.RestartButton);
 
 
 
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 blackCounterTextView.setText(totalTime.toString()+":"+"00");
             }
         });
-        
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +85,26 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }.start();
+                startButton.setVisibility(View.INVISIBLE);
+                wSwitchButton.setVisibility(View.VISIBLE);
+                reset.setVisibility(View.VISIBLE);
+                Numberofblackswitchpresses=1;
+            }
+        });
+
+         reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Numberofblackswitchpresses=0;
+                numberofwhiteswitchpresses=0;
+                blackCountDownTimer.cancel();
+                whiteCountDownTimer.cancel();
+                startButton.setVisibility(View.VISIBLE);
+                reset.setVisibility(View.INVISIBLE);
+                wSwitchButton.setVisibility(View.INVISIBLE);
+                bSwitchButton.setVisibility(View.INVISIBLE);
+                whiteCounterTextView.setText(totalTime.toString()+":"+"00");
+                blackCounterTextView.setText(totalTime.toString()+":"+"00");
             }
         });
 
@@ -123,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }.start();
                 }
+                wSwitchButton.setVisibility(View.INVISIBLE);
+                bSwitchButton.setVisibility(View.VISIBLE);
 
             }
         });
@@ -131,22 +158,47 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 blackCountDownTimer.cancel();
-                whiteCountDownTimer= new CountDownTimer(wtimeleftinmillis,1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        wtimeleftinmillis=millisUntilFinished;
-                        int minutes=(int) (wtimeleftinmillis/1000)/60;
-                        int seconds=(int) (wtimeleftinmillis/1000)%60;
-                        String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d",minutes,seconds);
-                        whiteCounterTextView.setText(timeLeftFormatted);
+                if(Numberofblackswitchpresses>0){
+                    whiteCountDownTimer = new CountDownTimer(wtimeleftinmillis, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            wtimeleftinmillis = millisUntilFinished;
+                            int minutes = (int) (wtimeleftinmillis / 1000) / 60;
+                            int seconds = (int) (wtimeleftinmillis / 1000) % 60;
+                            String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+                            whiteCounterTextView.setText(timeLeftFormatted);
 
-                    }
+                        }
 
-                    @Override
-                    public void onFinish() {
+                        @Override
+                        public void onFinish() {
 
-                    }
-                }.start();
+                        }
+                    }.start();
+
+                }
+                else
+                {
+                    Numberofblackswitchpresses=1;
+                    whiteCountDownTimer = new CountDownTimer(totalTime*60000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            wtimeleftinmillis = millisUntilFinished;
+                            int minutes = (int) (wtimeleftinmillis / 1000) / 60;
+                            int seconds = (int) (wtimeleftinmillis / 1000) % 60;
+                            String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+                            whiteCounterTextView.setText(timeLeftFormatted);
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    }.start();
+                }
+                bSwitchButton.setVisibility(View.INVISIBLE);
+                wSwitchButton.setVisibility(View.VISIBLE);
+
             }
         });
 
