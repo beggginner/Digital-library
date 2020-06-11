@@ -183,7 +183,6 @@
             android:layout_width="0dp"
             android:layout_height="132dp"
             android:background="#EDD8A2"
-            android:fontFamily="@font/architects_daughter"
             android:gravity="center"
             android:padding="10dp"
             android:text="Chess Clock"
