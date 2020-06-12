@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NavUtils;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -87,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
                     }
                 }.start();
                 startButton.setVisibility(View.INVISIBLE);
@@ -131,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
                         }
                     }.start();
                 }
@@ -150,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
                         }
                     }.start();
                 }
@@ -178,8 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
-                        }
+                                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
+                        }   
                     }.start();
 
                 }
@@ -198,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
                         }
                     }.start();
                 }
