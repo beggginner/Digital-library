@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NavUtils;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer whiteCountDownTimer;
     CountDownTimer blackCountDownTimer;
 
-    long wtimeleftinmillis = 60000;
-    long btimeleftinmillis = 60000;
+    long wtimeleftinmillis = 0;
+    long btimeleftinmillis = 0;
     int numberofwhiteswitchpresses =0;
     int Numberofblackswitchpresses=0;
     int number=0;
@@ -59,11 +60,16 @@ public class MainActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                welcomePage.setVisibility(View.INVISIBLE);
-                clockPage.setVisibility(View.VISIBLE);
-                totalTime=Integer.parseInt(minutes.getText().toString());
-                whiteCounterTextView.setText(totalTime.toString()+":"+"00");
-                blackCounterTextView.setText(totalTime.toString()+":"+"00");
+
+                if((minutes.getText().toString()).matches(""))
+                    Toast.makeText(MainActivity.this, "Enter Duration First!!!", Toast.LENGTH_SHORT).show();
+                else {
+                    welcomePage.setVisibility(View.INVISIBLE);
+                    clockPage.setVisibility(View.VISIBLE);
+                    totalTime = Integer.parseInt(minutes.getText().toString());
+                    whiteCounterTextView.setText(totalTime.toString() + ":" + "00");
+                    blackCounterTextView.setText(totalTime.toString() + ":" + "00");
+                }
             }
         });
 
@@ -82,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                        mp.start();
+                        bSwitchButton.setVisibility(View.INVISIBLE);
+                        wSwitchButton.setVisibility(View.INVISIBLE);
                     }
                 }.start();
                 startButton.setVisibility(View.INVISIBLE);
@@ -92,12 +101,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         reset.setOnClickListener(new View.OnClickListener() {
+        reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(numberofwhiteswitchpresses>0)
+                    blackCountDownTimer.cancel();
                 Numberofblackswitchpresses=0;
                 numberofwhiteswitchpresses=0;
-                blackCountDownTimer.cancel();
                 whiteCountDownTimer.cancel();
                 startButton.setVisibility(View.VISIBLE);
                 reset.setVisibility(View.INVISIBLE);
@@ -125,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                            mp.start();
+                            bSwitchButton.setVisibility(View.INVISIBLE);
+                            wSwitchButton.setVisibility(View.INVISIBLE);
                         }
                     }.start();
                 }
@@ -144,7 +157,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                            mp.start();
+                            bSwitchButton.setVisibility(View.INVISIBLE);
+                            wSwitchButton.setVisibility(View.INVISIBLE);
                         }
                     }.start();
                 }
@@ -172,7 +188,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                            mp.start();
+                            bSwitchButton.setVisibility(View.INVISIBLE);
+                            wSwitchButton.setVisibility(View.INVISIBLE);
                         }
                     }.start();
 
@@ -192,7 +211,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFinish() {
-
+                            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.a);
+                            mp.start();
+                            bSwitchButton.setVisibility(View.INVISIBLE);
+                            wSwitchButton.setVisibility(View.INVISIBLE);
                         }
                     }.start();
                 }
