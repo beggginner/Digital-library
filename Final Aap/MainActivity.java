@@ -1,4 +1,4 @@
-package com.example.ticktock;
+package com.example.chess_clock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
